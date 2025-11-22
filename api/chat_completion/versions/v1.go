@@ -92,7 +92,8 @@ func (c *ChatCompletionController) ChatCompletion(ctx *gin.Context) {
 	if err := json.Unmarshal(respBodyByte, &respBody); err != nil {
 		panic(err)
 	}
-
+	fmt.Println(resp.Header)
+	ctx.Writer.Header().Set("Content-Type", "application/json")
 	ctx.IndentedJSON(resp.StatusCode, respBody)
 
 }
