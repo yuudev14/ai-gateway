@@ -1,0 +1,36 @@
+root = "."
+tmp_dir = "tmp"
+
+poll = true
+
+# Main settings
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/main ."
+bin = "tmp/main"
+full_bin = ""
+include_ext = ["go", "tpl", "tmpl", "html"]
+exclude_dir = ["vendor", "tmp", ".git", ".idea", ".vscode", "node_modules", ".air"]
+exclude_file = []
+exclude_regex = []
+delay = 1000 # ms
+
+[env]
+PORT = "3000"
+
+[log]
+color = "auto"
+time = true
+
+[color]
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+error = "red"
+
+
+[[run]]
+cmd = "tmp/app"
