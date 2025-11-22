@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -60,8 +61,11 @@ func (c *ChatCompletionController) ChatCompletion(ctx *gin.Context) {
 
 		// Read streaming response line by line
 		scanner := bufio.NewScanner(resp.Body)
+		var re = regexp.MustCompile(`^data: `)
 		for scanner.Scan() {
 			line := scanner.Text()
+			formattedString := re.ReplaceAllString(line, "")
+			fmt.Println(formattedString)
 			ctx.Writer.Write([]byte(line + "\n"))
 			flusher.Flush()
 		}
@@ -95,5 +99,4 @@ func (c *ChatCompletionController) ChatCompletion(ctx *gin.Context) {
 	fmt.Println(resp.Header)
 	ctx.Writer.Header().Set("Content-Type", "application/json")
 	ctx.IndentedJSON(resp.StatusCode, respBody)
-
 }
