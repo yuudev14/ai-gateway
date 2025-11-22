@@ -56,13 +56,13 @@ func (c *ChatCompletionController) ChatCompletion(ctx *gin.Context) {
 			panic(err)
 		}
 		defer resp.Body.Close()
+		fmt.Println(resp.Header)
 
 		// Read streaming response line by line
 		scanner := bufio.NewScanner(resp.Body)
 		for scanner.Scan() {
 			line := scanner.Text()
 			ctx.Writer.Write([]byte(line + "\n"))
-			fmt.Println(line)
 			flusher.Flush()
 		}
 
