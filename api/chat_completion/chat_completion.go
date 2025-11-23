@@ -7,5 +7,5 @@ import (
 
 func SetupChatCompletionController(app *gin.RouterGroup) {
 	controller := chatcompletionv1.NewChatCompletionController()
-	app.POST("/v1/chat/completions", controller.ChatCompletion)
+	app.POST("/v1/chat/completions", controller.ChatCompletionProxy)
 }
